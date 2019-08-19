@@ -16,12 +16,13 @@
 # under the License.
 # pylint: disable=C,R,W
 """Package's main module!"""
-from copy import deepcopy
 import json
 import logging
-from logging.handlers import TimedRotatingFileHandler
 import os
+from copy import deepcopy
+from logging.handlers import TimedRotatingFileHandler
 
+import wtforms_json
 from flask import Flask, redirect
 from flask_appbuilder import AppBuilder, IndexView, SQLA
 from flask_appbuilder.baseviews import expose
@@ -30,7 +31,6 @@ from flask_migrate import Migrate
 from flask_talisman import Talisman
 from flask_wtf.csrf import CSRFProtect
 from werkzeug.contrib.fixers import ProxyFix
-import wtforms_json
 
 from superset import config
 from superset.connectors.connector_registry import ConnectorRegistry
@@ -49,6 +49,7 @@ if not os.path.exists(config.DATA_DIR):
 app = Flask(__name__)
 app.config.from_object(CONFIG_MODULE)
 conf = app.config
+print(app.config, "$$$")
 
 #################################################################
 # Handling manifest file logic at app start
@@ -174,6 +175,7 @@ if app.config.get("ENABLE_CHUNK_ENCODING"):
             if environ.get("HTTP_TRANSFER_ENCODING", "").lower() == u"chunked":
                 environ["wsgi.input_terminated"] = True
             return self.app(environ, start_response)
+
 
     app.wsgi_app = ChunkedEncodingFix(app.wsgi_app)
 

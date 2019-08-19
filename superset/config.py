@@ -36,6 +36,8 @@ from flask_appbuilder.security.manager import AUTH_DB
 from superset.stats_logger import DummyStatsLogger
 
 # Realtime stats logger, a StatsD implementation exists
+from superset.superset_config import CustomSecurityManager
+
 STATS_LOGGER = DummyStatsLogger()
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -70,7 +72,7 @@ SUPERSET_WEBSERVER_TIMEOUT = 60
 
 SUPERSET_DASHBOARD_POSITION_DATA_LIMIT = 65535
 EMAIL_NOTIFICATIONS = False
-CUSTOM_SECURITY_MANAGER = None
+CUSTOM_SECURITY_MANAGER = CustomSecurityManager
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 # ---------------------------------------------------------
 
@@ -146,7 +148,7 @@ DRUID_ANALYSIS_TYPES = ["cardinality"]
 # AUTH_LDAP : Is for LDAP
 # AUTH_REMOTE_USER : Is for using REMOTE_USER from web server
 AUTH_TYPE = AUTH_DB
-
+OIDC_CLIENT_SECRETS = 'superset/client_secrets.json'
 # Uncomment to setup Full admin role name
 # AUTH_ROLE_ADMIN = 'Admin'
 
